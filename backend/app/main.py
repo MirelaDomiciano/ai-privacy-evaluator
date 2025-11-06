@@ -4,6 +4,13 @@ Main FastAPI application
 
 from fastapi import FastAPI
 from app.routers import evaluator_routers
+from app.utils.logger import SetupLogger
+
+# Initialize logger
+SetupLogger.setup_logger()
+print("=" * 50)
+print("AI Privacy Evaluator API - Logger Initialized")
+print("=" * 50)
 
 # Create FastAPI app
 app = FastAPI(

@@ -13,18 +13,18 @@ services:
       - policy-evaluator
     env_file:
       - ./backend/.env
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   command: streamlit run streamlit_app.py --server.port=8501 --server.address=0.0.0.0
-  #   volumes:
-  #     - ./frontend:/app
-  #   ports:
-  #     - "8501:8501"
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     - ragnet
+  frontend:
+    build:
+      context: ./frontend
+    command: streamlit run streamlit_app.py --server.port=8501 --server.address=0.0.0.0
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    networks:
+      - policy-evaluator
 
 networks:
   policy-evaluator:

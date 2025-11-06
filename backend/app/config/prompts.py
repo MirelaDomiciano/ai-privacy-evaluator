@@ -9,7 +9,7 @@ Você deve ser:
 - Objetivo e claro, usando linguagem simples
 - Focado em conformidade com a LGPD e proteção do usuário
 - Atento a práticas abusivas de compartilhamento de dados
-- Crítico quanto à transparência sobre uso de algoritmos e IA"""
+"""
 
 
 EVALUATION_PROMPT = """Analise a seguinte política de privacidade sob a ótica da LGPD e identifique riscos para o usuário.
@@ -20,7 +20,7 @@ POLÍTICA DE PRIVACIDADE:
 Você deve retornar um JSON válido com a seguinte estrutura EXATA:
 
 {{
-  "summary": "Resumo em linguagem simples da política, em Markdown (use headings, bullet points, negrito, tabelas ou links se apropriado)",
+  "summary": "Resumo em linguagem simples da política, em Markdown, faça de forma clara e sucinta, sem informações extras. SOMENTE OS PONTOS MAIS IMPORTANTES DA POLÍTICA.",
   "risk_score": <número de 0 a 10, onde 0 é muito seguro e 10 é muito arriscado>,
   "risk_points": [
     {{
@@ -57,8 +57,6 @@ IMPORTANTE:
 - Retorne APENAS o JSON, sem texto adicional antes ou depois (não inclua comentários, exemplos ou código fora do JSON)
 - O campo summary deve ser sempre uma string Markdown VÁLIDA, entre aspas duplas
 - Todos os caracteres especiais, como quebras de linha de Markdown (`\n`), devem estar corretamente escapados para que o JSON permaneça válido
-- O JSON gerado deve ter SOMENTE os campos especificados: summary, risk_score, risk_points e nenhuma informação extra antes/depois.
-- NÃO coloque exemplos literais de JSON na resposta!
 """
 
 
