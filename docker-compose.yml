@@ -1,0 +1,31 @@
+#version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - policy-evaluator
+    env_file:
+      - ./backend/.env
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   command: streamlit run streamlit_app.py --server.port=8501 --server.address=0.0.0.0
+  #   volumes:
+  #     - ./frontend:/app
+  #   ports:
+  #     - "8501:8501"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - ragnet
+
+networks:
+  policy-evaluator:
+    driver: bridge

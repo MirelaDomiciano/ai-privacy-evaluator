@@ -1,0 +1,21 @@
+# FastAPI and server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Pydantic for data validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# LiteLLM for LLM integration
+litellm>=1.49.3
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Additional utilities
+python-multipart==0.0.6
+
+# Dependências para Google Gemini/LiteLLM
+google-auth>=2.22.0
+google-cloud-aiplatform>=1.38.1
+
