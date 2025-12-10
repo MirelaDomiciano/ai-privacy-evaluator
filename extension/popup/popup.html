@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Privacy Policy Evaluator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Avaliador de Privacidade</h1>
+            <p class="subtitle">Análise automática com IA</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <label for="policyText">Cole ou selecione a política de privacidade:</label>
+                <textarea 
+                    id="policyText" 
+                    placeholder="Cole o texto da política de privacidade aqui..."
+                    rows="8"
+                ></textarea>
+                
+                <div class="button-group">
+                    <button id="getSelectedText" class="btn btn-secondary">
+                        📄 Usar Texto Selecionado
+                    </button>
+                    <button id="evaluateBtn" class="btn btn-primary">
+                        🔍 Analisar Política
+                    </button>
+                </div>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Analisando política de privacidade...</p>
+            </div>
+
+            <div id="error" class="error hidden">
+                <strong>⚠️ Erro:</strong>
+                <p id="errorMessage"></p>
+            </div>
+
+            <div id="results" class="results hidden">
+                <h2>📊 Resultados da Análise</h2>
+                
+                <!-- Pontuação mais discreta -->
+                <div class="score-compact">
+                    <span class="score-label">Pontuação de Segurança:</span>
+                    <span id="overallScore" class="score-badge">-</span>
+                </div>
+
+                <!-- Resumo -->
+                <div class="summary-section">
+                    <h3>📝 Resumo</h3>
+                    <div id="summaryText" class="summary-content"></div>
+                </div>
+
+                <!-- Problemas por Categoria (Toggles) -->
+                <div class="issues-section">
+                    <h3>⚠️ Problemas Identificados</h3>
+                    <div id="issuesList" class="issues-toggle-list"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="api-status">
+                <span id="apiStatus">●</span> API Status: <span id="apiStatusText">Verificando...</span>
+            </p>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
+

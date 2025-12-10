@@ -21,6 +21,6 @@ class RiskPoint(BaseModel):
 class EvaluateResponse(BaseModel):
     """Response model for privacy policy evaluation"""
     summary: str = Field(..., description="Simple language summary of the policy")
-    risk_score: float = Field(..., ge=0, le=10, description="Overall risk score from 0 (safe) to 10 (high risk)")
+    risk_score: float = Field(..., ge=0, le=5, description="Overall risk score from 0 (very risky) to 5 (very safe)")
     risk_points: List[RiskPoint] = Field(..., description="List of identified risk points")
 

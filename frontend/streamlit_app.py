@@ -114,7 +114,9 @@ if st.session_state.analysis_done and st.session_state.result:
     # Coluna 1: Resumo
     with col1:
         st.markdown("### 📋 Resumo da Política")
-        st.markdown(result["summary"])
+        # Substituir \n literais por quebras de linha reais
+        summary_text = result["summary"].replace("\\n", "\n")
+        st.markdown(summary_text)
     
     # Coluna 2: Detalhamento dos Riscos
     with col2:

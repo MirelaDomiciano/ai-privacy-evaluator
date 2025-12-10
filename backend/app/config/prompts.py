@@ -4,11 +4,6 @@ LLM prompts for privacy policy evaluation
 
 SYSTEM_PROMPT = """Você é um especialista em privacidade de dados, LGPD (Lei Geral de Proteção de Dados) e políticas de privacidade.
 Sua função é analisar políticas de privacidade e identificar riscos reais para os usuários brasileiros.
-
-Você deve ser:
-- Objetivo e claro, usando linguagem simples
-- Focado em conformidade com a LGPD e proteção do usuário
-- Atento a práticas abusivas de compartilhamento de dados
 """
 
 
@@ -21,7 +16,7 @@ Você deve retornar um JSON válido com a seguinte estrutura EXATA:
 
 {{
   "summary": "Resumo em linguagem simples da política, em Markdown, faça de forma clara e sucinta, sem informações extras. SOMENTE OS PONTOS MAIS IMPORTANTES DA POLÍTICA.",
-  "risk_score": <número de 0 a 10, onde 0 é muito seguro e 10 é muito arriscado>,
+  "risk_score": <número de 0 a 5, onde 5 é muito seguro e 0 é muito arriscado>,
   "risk_points": [
     {{
       "category": "Nome da categoria do risco",
@@ -31,32 +26,30 @@ Você deve retornar um JSON válido com a seguinte estrutura EXATA:
   ]
 }}
 
-CATEGORIAS DE RISCO (use estas):
-1. **Conformidade LGPD**: Falta de informações obrigatórias (DPO/Encarregado, base legal, finalidade clara)
-2. **Compartilhamento com Terceiros**: Dados compartilhados com "parceiros", redes de publicidade, afiliados
-3. **Linguagem Enganosa**: Uso de "não vendemos dados" mas admite compartilhamento; termos vagos como "interesses legítimos"
-4. **Retenção de Dados**: Prazo indefinido, excessivo ou não especificado para guardar dados
-5. **Direitos do Titular**: Dificuldade para exercer direitos (acessar, corrigir, excluir dados; revogar consentimento)
-6. **Decisões Automatizadas**: Uso de IA/algoritmos sem transparência ou direito de revisão humana
-7. **Consentimento**: Falta de clareza sobre o que você está consentindo; finalidade genérica
-8. **Transferência Internacional**: Dados enviados para fora do Brasil sem garantias adequadas
-
-CRITÉRIOS PARA RISK_SCORE:
-- 0-2: Política transparente, conforme LGPD, favorável ao usuário
-- 3-4: Política razoável, pequenas falhas de transparência
-- 5-6: Política com pontos de atenção (compartilhamento amplo, linguagem vaga)
-- 7-8: Política problemática (múltiplas "red flags", dificulta direitos do usuário)
-- 9-10: Política muito arriscada (não conforme LGPD, práticas abusivas)
+CATEGORIAS DE RISCO (use APENAS estas 4 categorias):
+1. **Conformidade LGPD**: Falta de informações obrigatórias, base legal, DPO/Encarregado, finalidade clara
+2. **Compartilhamento e Uso de Dados**: Como os dados são usados, compartilhados com terceiros, vendidos ou cedidos
+3. **Direitos do Usuário**: Facilidade para acessar, corrigir, excluir dados; clareza sobre consentimento
+4. **Transparência e Clareza**: Linguagem enganosa, termos vagos, informações ocultas ou confusas
 
 CRITÉRIOS PARA SEVERITY:
 - **low**: Risco menor, prática comum mas que merece atenção
-- **medium**: Risco moderado, pode prejudicar privacidade (ex: compartilhamento com parceiros, prazo longo)
-- **high**: Risco alto, prática invasiva ou não conforme LGPD (ex: falta de DPO, impossibilidade de excluir dados, linguagem enganosa)
+- **medium**: Risco moderado, pode prejudicar privacidade
+- **high**: Risco alto, prática invasiva ou não conforme LGPD
+
+CRITÉRIOS PARA RISK_SCORE:
+- 5: Política excelente, transparente, conforme LGPD, muito favorável ao usuário
+- 4: Política boa, pequenas ressalvas mas geralmente segura
+- 3: Política razoável, alguns pontos de atenção (compartilhamento moderado, linguagem às vezes vaga)
+- 2: Política problemática, vários problemas significativos, dificulta direitos do usuário
+- 1: Política ruim, múltiplos problemas graves, práticas questionáveis
+- 0: Política muito arriscada, não conforme LGPD, práticas abusivas
 
 IMPORTANTE:
-- Retorne APENAS o JSON, sem texto adicional antes ou depois (não inclua comentários, exemplos ou código fora do JSON)
-- O campo summary deve ser sempre uma string Markdown VÁLIDA, entre aspas duplas
-- Todos os caracteres especiais, como quebras de linha de Markdown (`\n`), devem estar corretamente escapados para que o JSON permaneça válido
+- Retorne APENAS o JSON, sem texto adicional antes ou depois
+- O campo summary deve ser uma string CURTA (máximo 300 caracteres)
+- Identifique entre 2 a 5 risk_points principais (não exagere na quantidade)
+- Seja objetivo e direto nas descrições
 """
 
 

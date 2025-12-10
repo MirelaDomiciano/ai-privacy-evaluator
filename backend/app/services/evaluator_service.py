@@ -7,7 +7,7 @@ import json
 from typing import Any
 from litellm import completion
 import litellm
-from app.config.constants import GOOGLE_API_KEY, GOOGLE_MODEL
+from app.config.constants import GOOGLE_API_KEY, GOOGLE_MODEL, LLM_TEMPERATURE, LLM_MAX_TOKENS
 from app.config.prompts import get_evaluation_prompt, SYSTEM_PROMPT
 from app.schemas.evaluator import EvaluateRequest, EvaluateResponse, RiskPoint
 from app.utils.logger import JsonLogger
@@ -20,10 +20,10 @@ litellm.set_verbose = False
 
 class EvaluatorService:
     def __init__(self):
-        self.api_key = os.environ.get('GOOGLE_API_KEY')
-        self.model = os.environ.get('GOOGLE_MODEL')
-        self.temperature = float(os.environ.get('LLM_TEMPERATURE', "0.3"))
-        self.max_tokens = int(os.environ.get('LLM_MAX_TOKENS', "8000"))
+        self.api_key = GOOGLE_API_KEY
+        self.model = GOOGLE_MODEL
+        self.temperature = LLM_TEMPERATURE
+        self.max_tokens = LLM_MAX_TOKENS
         
         JsonLogger.log(
             level="INFO",
